@@ -2,13 +2,12 @@ FROM alpine:latest
 
 MAINTAINER go.kscripting@gmail.com
 
-ARG KSCRIPT_VERSION=4.1.1
-ARG KOTLIN_VERSION=1.7.21
+ARG KSCRIPT_VERSION=4.2.3
+ARG KOTLIN_VERSION=1.9.24
 
 RUN \
-# Install bash & Java \
-apk add bash openjdk11 && \
-\
+# Install bash \
+apk add bash && \
 # Create temp dir
 cd $(mktemp -d) && \
 \
@@ -29,8 +28,9 @@ cd $(mktemp -d) && \
 
 WORKDIR /w
 
-ENTRYPOINT KOTLIN_HOME=/opt/kotlinc \
-    PATH=/opt/kotlinc/bin:$PATH \
-    kscript "$0" "$@"
+ENV KOTLIN_HOME=/opt/kotlinc
+ENV PATH=/opt/kotlinc/bin:$PATH
+
+ENTRYPOINT kscript "$0" "$@"
 
 CMD [ "--help" ]
