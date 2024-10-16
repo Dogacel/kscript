@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM gradle:jdk21-alpine
 
 MAINTAINER go.kscripting@gmail.com
 
